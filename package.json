@@ -1,0 +1,30 @@
+{
+    "name": "react-mapbox-helper",
+    "version": "1.0.1",
+    "description": "A mapbox wrapper for displaying point features with hover",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/leogoesger/react-mapbox-helper"
+    },
+    "keywords": [],
+    "author": "Leo Qiu <leoq91@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/leogoesger/react-mapbox-helper/issues"
+    },
+    "homepage": "https://github.com/leogoesger/react-mapbox-helper",
+    "devDependencies": {
+        "typescript": "^2.9.2",
+        "@types/mapbox-gl": "^0.45.2",
+        "@types/react": "^16.4.6"
+    },
+    "dependencies": {
+        "mapbox-gl": "^0.47.0-beta.1",
+        "react": "^16.4.1"
+    }
+}
