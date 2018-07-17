@@ -1,2 +1,2 @@
-import Map from "./Map";
-export { Map };
+import ReactMap from "./Map";
+export { ReactMap };

@@ -1,3 +1,3 @@
-import Map from "./Map";
+import ReactMap from "./Map";
 
-export { Map };
+export { ReactMap };
