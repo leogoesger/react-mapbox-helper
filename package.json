@@ -5,7 +5,11 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "patch": "npm version patch",
+        "minor": "npm version minor",
+        "major": "npm version major",
+        "publish": "npm publish"
     },
     "repository": {
         "type": "git",
