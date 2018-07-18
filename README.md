@@ -25,10 +25,10 @@ import { ReactMap } from "react-mapbox-helper";
 />
 ```
 
-| Key               | Type             | Description                           |
-| ----------------- | :--------------: | :-----------------------------------: |
-| `accessToken`     | string           | Mapbox token                          |
-| `mapStyle`        | object \| string | Mapbox `json` file or style sheet url |
-| `pointSource`     | object           | `geojson` object                      |
-| `pointLayer`      | object           | Mapbox style object                   |
-| `hoverFeatureKey` | string           | string in properties                  |
+| Key               | Type             | Description                 |
+| ----------------- | :--------------: | :-------------------------: |
+| `accessToken`     | string           | Mapbox token                |
+| `mapStyle`        | object \| string | `json` or style sheet `url` |
+| `pointSource`     | object           | `geojson` object            |
+| `pointLayer`      | object           | Mapbox style object         |
+| `hoverFeatureKey` | string           | string in properties        |
