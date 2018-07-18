@@ -45,8 +45,18 @@ It take two parameters: raw data and options params.
 | `param_1` | object[] | objects from api or any source |
 | `param_2` | IParam   | key mapping                    |
 
+where `IParam` is an object with type as following:
 
-For example, the data come back from `api` is as such
+
+```
+interface IParam {
+    longitude: string;
+    latitude: string;
+    propertyKeys: string[];
+}
+```
+
+For example, this is the data from `api`
 
 ```
 [  
