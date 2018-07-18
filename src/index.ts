@@ -1,3 +1,3 @@
 import ReactMap from "./Map";
-
-export { ReactMap };
+import getPointSource from "./getPointSource";
+export { ReactMap, getPointSource };

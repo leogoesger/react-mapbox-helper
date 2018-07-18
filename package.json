@@ -1,6 +1,6 @@
 {
     "name": "react-mapbox-helper",
-    "version": "1.1.2",
+    "version": "0.0.2",
     "description": "A mapbox wrapper for displaying point features with hover",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
