@@ -1,16 +1,39 @@
-## React Mapbox Helper
+# React Mapbox Helper
 
 Simple wrapper around Mapbox GL for displaying point features on any styled map.
 
 Current helpers: `ReactMap` and `getPointSource`
 
-### Example - `ReactMap`
+## Installation
+
+```
+yarn add react-mapbox-helper
+```
 
 Include `css` style sheet in `index.html`
 
 ```
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
 ```
+
+Add a custome `css` for the tooltip or your own
+
+```
+.tooltip {
+    position: absolute;
+    margin: 8px;
+    padding: 4px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    max-width: 300px;
+    font-size: 10px;
+    z-index: 7;
+    pointer-events: none;
+}
+```
+
+
+##  `ReactMap`
 
 Use the component
 
@@ -34,7 +57,7 @@ import { ReactMap } from "react-mapbox-helper";
 | `pointLayer`      | object           | Mapbox style object         |
 | `hoverFeatureKey` | string           | string in properties        |
 
-### Example - `getPointSource`
+##  `getPointSource`
 
 This helper normalizes an array of objects into a common `geojson` object that can be passed down to Mapbox, and persver its properties if needed.
 
