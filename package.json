@@ -15,7 +15,11 @@
         "type": "git",
         "url": "git+https://github.com/leogoesger/react-mapbox-helper"
     },
-    "keywords": [],
+    "keywords": [
+        "mapbox",
+        "mapbox gl",
+        "react"
+    ],
     "author": "Leo Qiu <leoq91@gmail.com>",
     "license": "MIT",
     "bugs": {
