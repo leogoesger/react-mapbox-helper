@@ -2,8 +2,9 @@
 
 Simple wrapper around Mapbox GL for displaying point features on any styled map.
 
+Current helpers: `ReactMap` and `getPointSource`
 
-### Example
+### Example - `ReactMap`
 
 Include `css` style sheet in `index.html`
 
@@ -32,3 +33,83 @@ import { ReactMap } from "react-mapbox-helper";
 | `pointSource`     | object           | `geojson` object            |
 | `pointLayer`      | object           | Mapbox style object         |
 | `hoverFeatureKey` | string           | string in properties        |
+
+### Example - `getPointSource`
+
+This helper normalizes an array of objects into a common `geojson` object that can be passed down to Mapbox, and persver its properties if needed.
+
+It take two parameters: raw data and options params.
+
+| Key       | Type     | Description                    |
+| --------- | :------: | :----------------------------: |
+| `param_1` | object[] | objects from api or any source |
+| `param_2` | IParam   | key mapping                    |
+
+
+For example, the data come back from `api` is as such
+
+```
+[  
+   {  
+      "location":"Davis",
+      "lat":38.544907,
+      "lng":-121.740517,
+      "__typename":"CCSiteType"
+   },
+   {  
+      "location":"Dixon",
+      "lat":38.445623,
+      "lng":-121.826706,
+      "__typename":"CCSiteType"
+   }
+]
+```
+
+and we want to transform the data to `geojson` object.
+
+```
+getPointSource(data, {
+                        longitude: "lng",
+                        latitude: "lat",
+                        propertyKeys: ["location"],
+                    })
+```
+
+This will produce an geojson object
+
+```
+{  
+   "data":{  
+      "type":"FeatureCollection",
+      "features":[  
+         {  
+            "type":"Feature",
+            "geometry":{  
+               "type":"Point",
+               "coordinates":[  
+                  -121.740517,
+                  38.544907
+               ]
+            },
+            "properties":{  
+               "location":"Davis"
+            }
+         },
+         {  
+            "type":"Feature",
+            "geometry":{  
+               "type":"Point",
+               "coordinates":[  
+                  -121.826706,
+                  38.445623
+               ]
+            },
+            "properties":{  
+               "location":"Dixon"
+            }
+         }
+      ]
+   },
+   "type":"geojson"
+}
+```
