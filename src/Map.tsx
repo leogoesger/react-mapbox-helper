@@ -13,6 +13,7 @@ interface IProps {
     mapStyle: any;
     hoverFeatureKey: string;
     accessToken: string;
+    onClick: (prop: string) => void;
 }
 
 class Map extends React.Component<IProps, IState> {
@@ -52,51 +53,57 @@ class Map extends React.Component<IProps, IState> {
             });
         }
 
-        this.map.on("mousemove", e => {
-            const features = this.map.queryRenderedFeatures(e.point);
-            if (
-                features.length > 0 &&
-                features[0].properties[hoverFeatureKey]
-            ) {
-                this.map.getCanvas().style.cursor = "pointer";
-                this.setState({
-                    x: e.point.x,
-                    y: e.point.y,
-                    feature: features[0].properties[hoverFeatureKey],
-                });
-            } else {
-                this.map.getCanvas().style.cursor = "";
-                this.setState({
-                    x: 0,
-                    y: 0,
-                    feature: "",
-                });
-            }
-        });
+        this.map.on("mousemove", e => this.onHover(e, hoverFeatureKey));
+        this.map.on("click", e => this.onClick(e, hoverFeatureKey));
     }
 
     componentWillUnmount() {
         this.map.remove();
     }
 
-    public render() {
-        const style = {
-            height: "300px",
-            width: "100%",
-        };
+    private onHover(e, hoverFeatureKey) {
+        const features = this.map.queryRenderedFeatures(e.point);
+        if (features.length > 0 && features[0].properties[hoverFeatureKey]) {
+            this.map.getCanvas().style.cursor = "pointer";
+            this.setState({
+                x: e.point.x,
+                y: e.point.y,
+                feature: features[0].properties[hoverFeatureKey],
+            });
+        } else {
+            this.map.getCanvas().style.cursor = "";
+            this.setState({
+                x: 0,
+                y: 0,
+                feature: "",
+            });
+        }
+    }
 
+    private onClick(e, hoverFeatureKey) {
+        const features = this.map.queryRenderedFeatures(e.point);
+        if (features.length > 0 && features[0].properties[hoverFeatureKey]) {
+            this.props.onClick(features[0].properties[hoverFeatureKey]);
+        }
+    }
+
+    public render() {
         const { x, y, feature } = this.state;
         return (
             <div style={{ position: "relative" }}>
-                <div style={style} ref={el => (this.mapContainer = el)} />
+                <div
+                    className="react-mapbox"
+                    ref={el => (this.mapContainer = el)}
+                />
                 {feature && (
                     <div
-                        className="tooltip"
+                        className="react-mapbox-tooltip"
                         style={{ position: "absolute", left: x, top: y }}
                     >
                         <div>{feature}</div>
                     </div>
                 )}
+                {this.props.children}
             </div>
         );
     }

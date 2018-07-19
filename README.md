@@ -16,10 +16,10 @@ Include `css` style sheet in `index.html`
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
 ```
 
-Add a custome `css` for the tooltip or your own
+Add a custome `css` for the tooltip and mapbox viewport
 
 ```
-.tooltip {
+.react-mapbox-tooltip {
     position: absolute;
     margin: 8px;
     padding: 4px;
@@ -30,12 +30,17 @@ Add a custome `css` for the tooltip or your own
     z-index: 7;
     pointer-events: none;
 }
+.react-mapbox {
+    width: 100%;
+    height: 100%;
+}
 ```
 
 
-##  `ReactMap`
+##  ReactMap Component
 
-Use the component
+Use the component or you can follow this [example](https://github.com/leogoesger/react-mapbox-helper/blob/master/example/Example.tsx)
+
 
 ```
 import { ReactMap } from "react-mapbox-helper";
@@ -46,18 +51,22 @@ import { ReactMap } from "react-mapbox-helper";
     pointSource={POINT_SOURCE}
     pointLayer={MAP_LAYER}
     hoverFeatureKey={"location"}
+    onClick={this.onClick}
 />
 ```
 
-| Key               | Type             | Description                 |
-| ----------------- | :--------------: | :-------------------------: |
-| `accessToken`     | string           | Mapbox token                |
-| `mapStyle`        | object \| string | `json` or style sheet `url` |
-| `pointSource`     | object           | `geojson` object            |
-| `pointLayer`      | object           | Mapbox style object         |
-| `hoverFeatureKey` | string           | string in properties        |
+| Key               | Type               | Description                           |
+| ----------------- | :----------------: | :-----------------------------------: |
+| `accessToken`     | string             | Mapbox token                          |
+| `mapStyle`        | object \| string   | `json` or style sheet `url`           |
+| `pointSource`     | object             | `geojson` object                      |
+| `pointLayer`      | object             | Mapbox style object                   |
+| `hoverFeatureKey` | string             | string in properties                  |
+| `onClick`         | (e:string) => void | event handler for clicking on feature |
 
-##  `getPointSource`
+Note: `onClick` sends back a property value using `hoverFeatureKey`.
+
+##  getPointSource helper
 
 This helper normalizes an array of objects into a common `geojson` object that can be passed down to Mapbox, and persver its properties if needed.
 
