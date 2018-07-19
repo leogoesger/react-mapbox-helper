@@ -6,9 +6,9 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "patch": "npm version patch && yarn bulid",
-        "minor": "npm version minor && yarn bulid",
-        "major": "npm version major && yarn bulid",
+        "patch": "npm version patch && npm bulid",
+        "minor": "npm version minor && npm bulid",
+        "major": "npm version major && npm bulid",
         "publish": "npm publish"
     },
     "repository": {
