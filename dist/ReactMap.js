@@ -25,7 +25,10 @@ var Map = /** @class */ (function (_super) {
     }
     Map.prototype.componentDidMount = function () {
         var _this = this;
-        var _a = this.props, pointSource = _a.pointSource, pointLayer = _a.pointLayer, hoverFeatureKey = _a.hoverFeatureKey, mapStyle = _a.mapStyle;
+        var _a = this.props, sources = _a.sources, sourceIds = _a.sourceIds, layers = _a.layers, hoverFeatureKey = _a.hoverFeatureKey, mapStyle = _a.mapStyle;
+        if (sources.length !== sourceIds.length) {
+            throw "Make sure the sources and sourceIds are same length.";
+        }
         Object
             .getOwnPropertyDescriptor(mapboxgl, "accessToken")
             .set(this.props.accessToken);
@@ -33,12 +36,16 @@ var Map = /** @class */ (function (_super) {
             container: this.mapContainer,
             style: mapStyle,
         });
-        if (pointSource) {
-            this.map.on("load", function () {
-                _this.map.addSource("pointData", pointSource);
-                _this.map.addLayer(pointLayer);
-            });
-        }
+        this.map.on("load", function () {
+            sources.length > 0 &&
+                sources.forEach(function (source, index) {
+                    _this.map.addSource(sourceIds[index], source);
+                });
+            layers.length > 0 &&
+                layers.forEach(function (layer) {
+                    _this.map.addLayer(layer);
+                });
+        });
         this.map.on("mousemove", function (e) { return _this.onHover(e, hoverFeatureKey); });
         this.map.on("click", function (e) { return _this.onClick(e, hoverFeatureKey); });
     };

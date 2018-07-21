@@ -4,9 +4,23 @@ interface IState {
     y: number;
     feature: string;
 }
+interface IGeoJson {
+    data: {
+        type: string;
+        features: any[];
+    };
+    type: string;
+}
+interface ILayout {
+    source: string;
+    type: string;
+    id: string;
+    [index: string]: any;
+}
 interface IProps {
-    pointSource: any;
-    pointLayer: any;
+    sources: IGeoJson[];
+    sourceIds: string[];
+    layers: ILayout[];
     mapStyle: any;
     hoverFeatureKey: string;
     accessToken: string;
