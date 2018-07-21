@@ -62,7 +62,7 @@ import { ReactMap } from "react-mapbox-helper";
 | `mapStyle`        | object \| string   | `json` or style sheet `url`           |
 | `sources`         | object[]           | `geojson` objects array               |
 | `sourceIds`       | string[]           | source IDs array                      |
-| `layers`          | object             | Mapbox style object                   |
+| `layers`          | object[]           | Mapbox style objects array            |
 | `hoverFeatureKey` | string             | string in properties                  |
 | `onClick`         | (e:string) => void | event handler for clicking on feature |
 
@@ -157,3 +157,106 @@ This will produce an geojson object
    "type":"geojson"
 }
 ```
+
+## Example Props
+
+### mapStyle
+Use the mapbox style sheet directly with `mapbox://styles/mapbox/streets-v9`. Or you can custome create your own style sheet and download it into `JSON` file, and import it. 
+
+### sources
+An array with a list of `geoJson` objects. For example: 
+
+```
+[{  
+   "data":{  
+      "type":"FeatureCollection",
+      "features":[  
+         {  
+            "type":"Feature",
+            "geometry":{  
+               "type":"Point",
+               "coordinates":[  
+                  -121.740517,
+                  38.544907
+               ]
+            },
+            "properties":{  
+               "location":"Davis"
+            }
+         },
+      ]
+   },
+   "type":"geojson"
+},{  
+   "data":{  
+      "type":"FeatureCollection",
+      "features":[  
+         {  
+            "type":"Feature",
+            "geometry":{  
+               "type":"Polygon",
+                //
+            },
+            "properties":{  
+               "location":"Yolo County"
+            }
+         },
+      ]
+   },
+   "type":"geojson"
+}]
+```
+
+### sourceIds
+
+An array matching with `sources`. Using previous example, it would need to have 2 elements. This will assign `pointData` to the first source and `polygonData` for the second source.
+
+```
+['pointData', 'polygonData']
+```
+
+### layers
+
+An array with Mapbox style objects. Mapbox will apply each layer based on `source` key.
+
+```
+[{
+    id: "pointData",
+    source: "pointData",
+    type: "circle",
+    interactive: true,
+    minzoom: 5,
+    layout: {
+        visibility: "visible",
+    },
+    paint: {
+        "circle-radius": {
+            base: 3,
+            stops: [[5, 3.5], [7, 5.5]],
+        },
+        "circle-stroke-color": "#fafafa",
+        "circle-stroke-width": 1,
+        "circle-color": "#03a9f4",
+    },
+},{
+    id: "polygonData",
+    source: "polygonData",
+    type: "circle",
+    interactive: true,
+    minzoom: 5,
+    layout: {
+        visibility: "visible",
+    },
+    paint: {
+        // your style
+    },
+}]
+```
+
+### hoverFeatureKey
+
+A string value that allows Mapbox to know when to show the Tooltip. In here, we can use `location`
+
+### onClick
+
+An onClick event handler for when user click certain feature. 
