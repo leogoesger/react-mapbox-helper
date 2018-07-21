@@ -7,9 +7,25 @@ interface IState {
     feature: string;
 }
 
+interface IGeoJson {
+    data: {
+        type: string;
+        features: any[];
+    };
+    type: string;
+}
+
+interface ILayout {
+    source: string;
+    type: string;
+    id: string;
+    [index: string]: any;
+}
+
 interface IProps {
-    pointSource: any;
-    pointLayer: any;
+    sources: IGeoJson[];
+    sourceIds: string[];
+    layers: ILayout[];
     mapStyle: any;
     hoverFeatureKey: string;
     accessToken: string;
@@ -31,11 +47,16 @@ class Map extends React.Component<IProps, IState> {
 
     componentDidMount() {
         const {
-            pointSource,
-            pointLayer,
+            sources,
+            sourceIds,
+            layers,
             hoverFeatureKey,
             mapStyle,
         } = this.props;
+
+        if (sources.length !== sourceIds.length) {
+            throw "Make sure the sources and sourceIds are same length.";
+        }
 
         (Object as any)
             .getOwnPropertyDescriptor(mapboxgl, "accessToken")
@@ -46,12 +67,16 @@ class Map extends React.Component<IProps, IState> {
             style: mapStyle,
         });
 
-        if (pointSource) {
-            this.map.on("load", () => {
-                this.map.addSource("pointData", pointSource);
-                this.map.addLayer(pointLayer);
-            });
-        }
+        this.map.on("load", () => {
+            sources.length > 0 &&
+                sources.forEach((source, index) => {
+                    this.map.addSource(sourceIds[index], source);
+                });
+            layers.length > 0 &&
+                layers.forEach(layer => {
+                    this.map.addLayer(layer);
+                });
+        });
 
         this.map.on("mousemove", e => this.onHover(e, hoverFeatureKey));
         this.map.on("click", e => this.onClick(e, hoverFeatureKey));

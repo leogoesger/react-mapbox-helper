@@ -1,6 +1,6 @@
 # React Mapbox Helper
 
-Simple wrapper around Mapbox GL for displaying point features on any styled map.
+Simple wrapper around Mapbox GL for adding additional sources and layers to pre-existing Mapbox style sheet.
 
 Current helpers: `ReactMap` and `getPointSource`
 
@@ -48,8 +48,9 @@ import { ReactMap } from "react-mapbox-helper";
 <ReactMap
     accessToken={'you_token'}
     mapStyle={MAP_STYLE}
-    pointSource={POINT_SOURCE}
-    pointLayer={MAP_LAYER}
+    sources={POINT_SOURCE}
+    sourceIds={SOURCE_IDs}
+    layers={MAP_LAYER}
     hoverFeatureKey={"location"}
     onClick={this.onClick}
 />
@@ -59,12 +60,13 @@ import { ReactMap } from "react-mapbox-helper";
 | ----------------- | :----------------: | :-----------------------------------: |
 | `accessToken`     | string             | Mapbox token                          |
 | `mapStyle`        | object \| string   | `json` or style sheet `url`           |
-| `pointSource`     | object             | `geojson` object                      |
-| `pointLayer`      | object             | Mapbox style object                   |
+| `sources`         | object[]           | `geojson` objects array               |
+| `sourceIds`       | string[]           | source IDs array                      |
+| `layers`          | object             | Mapbox style object                   |
 | `hoverFeatureKey` | string             | string in properties                  |
 | `onClick`         | (e:string) => void | event handler for clicking on feature |
 
-Note: `onClick` sends back a property value using `hoverFeatureKey`.
+Note: `onClick` sends back a property value using `hoverFeatureKey`. `sources` and `sourceIds` need to have the same length, where first item in both array represent the same `geoJson` object.
 
 ##  getPointSource helper
 

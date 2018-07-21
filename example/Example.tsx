@@ -43,12 +43,15 @@ class Map extends React.PureComponent<IProps, IState> {
                             accessToken={
                                 "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA"
                             }
-                            pointSource={getPointSource(data.geoSites, {
-                                longitude: "lng",
-                                latitude: "lat",
-                                propertyKeys: ["location"],
-                            })}
-                            pointLayer={MAP_LAYER}
+                            sources={[
+                                getPointSource(data.geoSites, {
+                                    longitude: "lng",
+                                    latitude: "lat",
+                                    propertyKeys: ["location"],
+                                }),
+                            ]}
+                            sourceIds={["pointData"]}
+                            layers={[MAP_LAYER]}
                             hoverFeatureKey={"location"}
                             mapStyle={MAP_STYLE}
                             onClick={this.onClick}
@@ -59,8 +62,8 @@ class Map extends React.PureComponent<IProps, IState> {
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
                             >
-                                <DialogContent>
-                                    {this.state.dialogLocation}
+                                <DialogContent style={{ padding: "0px" }}>
+                                    {this.renderDialogContent(data.geoSites)}
                                 </DialogContent>
                             </Dialog>
                         </ReactMap>
